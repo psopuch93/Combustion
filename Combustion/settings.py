@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api'
+    'api',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -71,9 +72,9 @@ WSGI_APPLICATION = 'Combustion.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mydb',
+        'NAME': 'combustion_db',
         'USER': 'root',
-        'PASSWORD': 'admin',
+        'PASSWORD': 'xkhug%32!ps$hGDa42',
         'HOST': 'localhost',
         'PORT': '3306'
     }
