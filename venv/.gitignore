@@ -1,4 +1,6 @@
 # created by virtualenv automatically
 
-migrations/
-product_images/
+migrations/*
+!migrations/.gitkeep
+product_images/*
+!product_image/.gitkeep
