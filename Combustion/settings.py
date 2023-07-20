@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'phonenumber_field',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
