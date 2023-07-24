@@ -16,15 +16,25 @@ class Customer(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=30, blank=False, unique=True)
+    name_choices = (
+        ('All', 'All'),
+        ('Shoes', 'Shoes'),
+        ('Tops', 'Tops'),
+        ('Pants', 'Pants'),
+        ('Dresses', 'Dresses'),
+        ('Pants', 'Pants')
+    )
+    name = models.CharField(max_length=50, choices=name_choices, default='')
     description = models.TextField(max_length=256, blank=True)
 
 
 class Product(models.Model):
     name = models.CharField(max_length=50, blank=False, unique=True)
     description = models.CharField(max_length=100, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=None)
     price = models.FloatField(null=False)
     product_image = ResizedImageField(size=[500, 300], upload_to='product_images/', blank=True)
+    stock = models.IntegerField(default=0, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 

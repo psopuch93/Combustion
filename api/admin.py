@@ -4,8 +4,9 @@ from .models import *
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'lastname', 'company', 'address', 'postcode', 'phone_number', 'date_created', 'date_updated')
-    list_filter = ("company", )
+    list_display = ('name', 'lastname', 'company', 'address',
+                    'postcode', 'phone_number', 'date_created', 'date_updated',)
+    list_filter = ("company",)
     search_fields = ("lastname__startswith", "company__startswith")
 
     class Meta:
@@ -14,9 +15,12 @@ class CustomerAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class Category(admin.ModelAdmin):
-    pass
+    list_display = ("name", "description")
+    list_filter = ("name",)
+    search_fields = ("name__startswith",)
 
-    search_fields = ("name__startswith", "description__startswith")
+    class Meta:
+        ordering = ("name", "lastname")
 
 
 @admin.register(Product)
