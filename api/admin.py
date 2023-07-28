@@ -15,7 +15,8 @@ class CustomerAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class Category(admin.ModelAdmin):
-    list_display = ("name", "description")
+    list_display = ("name", "description", "slug")
+    prepopulated_fields = {'slug': ('name',)}
     list_filter = ("name",)
     search_fields = ("name__startswith",)
 
@@ -25,5 +26,9 @@ class Category(admin.ModelAdmin):
 
 @admin.register(Product)
 class Product(admin.ModelAdmin):
-    list_display = ('name', 'price')
+    list_display = ['name', 'brand', 'price', 'in_stock',
+                    'date_created', 'date_updated']
+    list_filter = ['in_stock', 'is_active']
+    list_editable = ['price', 'in_stock']
+    prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ['img_preview']
