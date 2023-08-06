@@ -1,17 +1,29 @@
-from django.shortcuts import get_object_or_404
-from .models import Category, Product
-from django.http import JsonResponse
+from django.shortcuts import render
 from rest_framework import viewsets
+
+from .models import *
 from .serializers import *
-import json
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 
-class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+class ProductView(APIView):
+    def get(self, request):
+        category = self.request.query_params.get('category')
+        if category:
+            queryset = Product.objects.filter(category__name=category)
+        else:
+            queryset = Product.objects.all()
+        serializer = ProductSerializer(queryset, many=True)
+        return Response({'count': len(serializer.data),'data':serializer.data})
 
 
-class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+class CategoryView(APIView):
+
+    def get(self, request):
+        queryset = Category.objects.all()
+        serializer = CategorySerializer(queryset, many=True)
+        return Response(serializer.data)
+
 
