@@ -36,10 +36,25 @@ class Category(models.Model):
         return self.name
 
 
+class Size(models.Model):
+    size_eu = models.DecimalField(max_digits=10, decimal_places=2)
+    size_us = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    size_uk = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    len_inch = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    len_cm = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = 'sizes'
+
+    def __str__(self):
+        return str(self.size_eu)
+
+
 class Product(models.Model):
     name = models.CharField(max_length=255, blank=False, unique=True)
     description = models.TextField(blank=True)
     slug = models.SlugField(max_length=255, unique=True)
+    size = models.ManyToManyField(Size)
     category = models.ForeignKey(Category, related_name='product', on_delete=models.CASCADE, default=None)
     brand = models.CharField(max_length=255, blank=True)
     price = models.DecimalField(max_digits=4, decimal_places=2)
@@ -62,4 +77,5 @@ class Product(models.Model):
         return mark_safe(f'<img src = "{self.product_image.url}" '
                          f'width = "{self.product_image.width}" '
                          f'height = "{self.product_image.height }"/>')
+
 

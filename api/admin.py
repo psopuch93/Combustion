@@ -32,3 +32,9 @@ class Product(admin.ModelAdmin):
     list_editable = ['price', 'in_stock']
     prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ['img_preview']
+
+
+@admin.register(Size)
+class Size(admin.ModelAdmin):
+    list_display = ['size_eu', 'size_us', 'size_uk', 'len_inch', 'len_cm']
+    list_filter = ['size_eu']
